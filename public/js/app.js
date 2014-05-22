@@ -1,4 +1,4 @@
-var target_date = new Date('5/26/2014 10:00:00').getTime();
+var target_date = new Date('5/25/2014 09:00:00').getTime();
 var days_multiplyer = 1000 * 60 * 60 * 24;
 var hours_multiplyer = 1000 * 60 * 60;
 var mins_multiplyer = 1000 * 60;
@@ -69,4 +69,10 @@ $(function() {
   setInterval(function() {
     $output.html(template(diff_func()));
   }, 10);
+
+  $('#targetdate').datetimepicker()
+    .on('dp.change', function(e) {
+      target_date = e.date.toDate();
+    });
+  $('#targetdate').data("DateTimePicker").setDate(target_date);
 });

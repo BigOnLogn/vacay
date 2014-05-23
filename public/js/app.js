@@ -61,14 +61,20 @@ var routes = {
 var router = Router(routes);
 
 router.init();
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
 
 $(function() {
   var $output = $('#output');
   var template = Handlebars.compile($('#countdown').html());
 
-  setInterval(function() {
+  function updateCountdown() {
     $output.html(template(diff_func()));
-  }, 10);
+    requestAnimationFrame(updateCountdown);
+  }
+
+  requestAnimationFrame(updateCountdown);
 
   $('#targetdate').datetimepicker()
     .on('dp.change', function(e) {
